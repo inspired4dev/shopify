@@ -1,0 +1,50 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.button {
+    width: 1.3rem;
+    height: 1.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    &--radio {
+        @extend .button;
+        border-radius: 50%;
+        &--selected {
+            @extend .button--radio;
+            border: 1px solid black;
+        }
+        &--content{
+            color:transparent;
+            width: 0.7rem;
+            height: 0.7rem;
+            border-radius: 50%;
+        }
+    }
+    &--box {
+        @extend .button;
+        border: 1px solid darkgray;
+        &--selected {
+            @extend .button--box;
+            border: 1px solid black;
+            >div {
+                color: black;
+            }
+        }
+        &--content{
+            width: 0.7rem;
+            height: 0.7rem;
+            font-size: 0.4rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: darkgray;
+        }
+    }
+}

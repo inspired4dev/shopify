@@ -1,0 +1,48 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: auto;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    @media only screen and (max-width: 760px) {
+        justify-content: center;
+        gap:1rem;
+    }
+}
+
+.miniatures {
+    width: 5rem;
+}
+
+.selected {
+    width: 100%;
+}
+
+.buttons {
+    border:none;
+    background-color: transparent;
+    cursor: pointer;
+    &--selected {
+        @extend .buttons;
+    }
+    @media only screen and (max-width: 760px) {
+        width: 0.5rem;
+        height: 0.5rem;
+        background-color: darkgray;
+        border-radius: 50%;
+        padding: 0;
+        >img {
+            display: none;
+        }
+        &--selected {
+            background-color: black;
+        }
+    }
+}
