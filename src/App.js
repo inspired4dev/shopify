@@ -12,8 +12,8 @@ function App() {
       .then((response) => {
         return response.json();
       })
-      .then((articulos) => {
-        setArticle(articulos);
+      .then((articles) => {
+        setArticle(articles);
       });
   }, []);
   return (

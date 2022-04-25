@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./RadioButton.module.scss";
 
 export const RadioButtons = ({
   values = [],
   type = "radio",
-  handleClick = () => "",
+  reference = React.createRef(),
 }) => {
   const [selected, setSelected] = useState(0);
-  useEffect(() => {
-    handleClick(values[selected]);
-  }, [handleClick, selected, values]);
 
   const createButtons = values.map((value, index) => (
     <button
@@ -22,6 +19,7 @@ export const RadioButtons = ({
       <div
         style={{ backgroundColor: value }}
         className={styles[`button--${type}--content`]}
+        ref={selected === index ? reference : null}
       >
         {value}
       </div>

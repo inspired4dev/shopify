@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Carousel.module.scss";
+
 export const Carousel = ({ images = [], title = "" }) => {
   const [selectedImage, setSelectedImage] = useState(null);
 

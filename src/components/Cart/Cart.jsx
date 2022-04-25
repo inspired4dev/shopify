@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState, useRef } from "react";
 import styles from "./Cart.module.scss";
 import { RadioButtons } from "../RadioButtons/RadioButtons";
 
@@ -11,8 +11,9 @@ export const Cart = ({ article }) => {
     variants = [],
     description = "",
   } = article || {};
-  const [sizes, setSizes] = useState([]);
   const [count, setCount] = useState(1);
+  const color = useRef(null);
+  const size = useRef(null);
 
   const createdColors = variants.reduce(
     (acc, variant) =>
@@ -20,22 +21,21 @@ export const Cart = ({ article }) => {
     []
   );
 
-  const createSizes = useCallback(
-    (color) =>
-      variants
-        .filter((variant) => variant.option1 === color)
-        .map((variant) => variant.option2),
-    [variants]
-  );
+  const createSizes = variants
+    .filter((variant) => variant.option1 === createdColors[0])
+    .map((variant) => variant.option2);
+
+  const getVariants = () =>
+    variants.filter(
+      (variant) =>
+        variant.option1 === color.current?.innerHTML &&
+        variant.option2 === size.current?.innerHTML
+    )[0];
 
   const handleMinus = () =>
     setCount((count) => (count - 1 > 1 ? count - 1 : 1));
   const handlePlus = () => setCount((count) => count + 1);
-
-  useEffect(() => {
-    setSizes(createSizes("Red"));
-  }, [createSizes]);
-
+  console.log(variants);
   return (
     <div className={styles.container}>
       <span className={styles["text--small--opaque"]}>{vendor}</span>
@@ -49,14 +49,11 @@ export const Cart = ({ article }) => {
       </div>
       <div className={styles.row}>
         <label className={styles["text--small--opaque"]}>Color:</label>
-        <RadioButtons
-          values={createdColors}
-          handleClick={(valueSelected) => setSizes(createSizes(valueSelected))}
-        />
+        <RadioButtons values={createdColors} reference={color} />
       </div>
       <div className={styles.row}>
         <label className={styles["text--small--opaque"]}>Size:</label>
-        <RadioButtons values={sizes} type="box" />
+        <RadioButtons values={createSizes} type="box" reference={size} />
       </div>
       <div className={styles["row--spaced"]}>
         <div className={styles["container--count"]}>
@@ -77,7 +74,17 @@ export const Cart = ({ article }) => {
         <button className={styles["button"]} type="submit">
           Add to favorite
         </button>
-        <button className={styles["button--invert"]} type="submit">
+        <button
+          className={styles["button--invert"]}
+          type="submit"
+          onClick={() =>
+            alert(
+              `You are buying Quantity: ${count} - Name: ${
+                getVariants().name
+              } - Total Price:${count * getVariants().price}`
+            )
+          }
+        >
           Add to cart
         </button>
       </div>
