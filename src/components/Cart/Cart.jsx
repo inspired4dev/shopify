@@ -35,7 +35,7 @@ export const Cart = ({ article }) => {
   const handleMinus = () =>
     setCount((count) => (count - 1 > 1 ? count - 1 : 1));
   const handlePlus = () => setCount((count) => count + 1);
-  console.log(variants);
+
   return (
     <div className={styles.container}>
       <span className={styles["text--small--opaque"]}>{vendor}</span>
